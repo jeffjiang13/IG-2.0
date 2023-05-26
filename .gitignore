@@ -24,4 +24,3 @@ dist-ssr
 *.local
 
 .vercel
-src/lib/firebase.js
