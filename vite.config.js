@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'build', // Add this line to specify 'build' as the output directory
     chunkSizeWarningLimit: 1600
   },
   resolve: {
