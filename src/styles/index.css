@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@font-face {
+  font-family: Poppins;
+  src: url("/assets/fonts/Poppins-Light.otf"),
+    url("/assets/fonts/Poppins-ExtraLightItalic.otf"),
+    url("/assets/fonts/Poppins-LightItalic.otf"),
+    url("/assets/fonts/Poppins-Italic.otf"),
+    url("/assets/fonts/Poppins-Black.otf"),
+    url("/assets/fonts/Poppins-BlackItalic.otf"),
+    url("/assets/fonts/Poppins-Bold.otf"),
+    url("/assets/fonts/Poppins-BoldItalic.otf"),
+    url("/assets/fonts/Poppins-ExtraBold.otf"),
+    url("/assets/fonts/Poppins-ExtraBoldItalic.otf"),
+    url("/assets/fonts/Poppins-ExtraLight.otf"),
+    url("/assets/fonts/Poppins-Medium.otf"),
+    url("/assets/fonts/Poppins-MediumItalic.otf"),
+    url("/assets/fonts/Poppins-Regular.otf"),
+    url("/assets/fonts/Poppins-SemiBold.otf"),
+    url("/assets/fonts/Poppins-SemiBoldItalic.otf"),
+    url("/assets/fonts/Poppins-Thin.otf"),
+    url("/assets/fonts/Poppins-ThinItalic.otf");
+}
+@layer base {
+  html {
+    font-family: Poppins, system-ui, sans-serif;
+  }
+}
+@layer components {
+  .navButton {
+    @apply h-7 w-7 cursor-pointer text-gray-600 transition-all duration-150 ease-in-out hover:scale-125 active:scale-90;
+  }
+  .input {
+    @apply mx-4 mb-2 h-2 w-11/12 rounded-md border-2 border-gray-300 bg-gray-100 bg-opacity-50 py-6 px-4 text-lg text-black hover:border-gray-500 focus:outline-none;
+  }
+  .submit {
+    @apply mx-4 my-3 w-11/12 items-center justify-center rounded-md border bg-sky-500 py-2 text-center text-lg font-semibold text-white transition duration-200 ease-in-out hover:scale-110 active:scale-90;
+  }
+  .grid {
+    @apply container mx-auto flex h-screen max-w-screen-md flex-col place-items-center items-center justify-center;
+  }
+  .top-grid {
+    @apply flex max-w-sm flex-col items-center border border-gray-200 bg-white;
+  }
+  .bottom-grid {
+    @apply flex w-96 items-center border border-gray-200 bg-white py-5 px-14;
+  }
+  .error-text {
+    @apply mb-4 -mt-4 text-sm font-semibold text-red-500;
+  }
+  .postButton {
+    @apply h-9 w-9 cursor-pointer text-gray-600 transition-all  duration-150 ease-in-out hover:scale-125;
+  }
+  .message {
+    @apply h-fit w-fit max-w-[70%] mb-1 whitespace-pre-line rounded-lg py-1 px-3;
+  }
+  .message-container {
+    @apply relative mb-2 flex w-full items-center space-x-2 px-2 text-xs text-black;
+  }
+  .message-time {
+    @apply -mt-[10px] mb-1 text-[10px] leading-4 tracking-wide text-gray-400;
+  }
+  img{
+    @apply select-none
+  }
+  @screen sm {
+    .navButton {
+      @apply inline-flex h-8 w-8;
+    }
+    .postButton {
+      @apply h-8 w-8;
+    }
+    .message {
+      @apply max-w-[50%];
+    }
+    .message-container {
+      @apply text-sm;
+    }
+  }
+  @screen md {
+    .message {
+      @apply max-w-[40%];
+    }
+  }
+}
+.phone-frame {
+  position: relative;
+  width: 400px;
+  height: 600px;
+  background: url(/phone-frame.png) center/cover no-repeat;
+}
+
+.slide {
+  position: absolute;
+  width: 241px;
+  height: 426px;
+  opacity: 0;
+  transition: opacity 3s;
+}
+
+.active__slide {
+  opacity: 1;
+}
+.slides-container {
+  position: absolute;
+  top: 15%;
+  left: 30.5%;
+  width: 80%;
+  height: 80%;
+  overflow: hidden;
+}
+@media (max-width: 730px) {
+  .phone-frame,
+  .slide,
+  .slides-container {
+    display: none;
+  }
+
+}

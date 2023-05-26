@@ -1,0 +1,16 @@
+.instagram-gradient {
+  background-image: linear-gradient(to right, #ffdc80, #fcaf45, #f77737, #c13584, #fd1d1d);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+
+.instagram-gradient::after {
+  content: attr(data-content);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: black;  /* Choose a fallback color */
+  z-index: -1;
+}
