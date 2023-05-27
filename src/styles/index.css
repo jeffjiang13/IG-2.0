@@ -34,10 +34,10 @@
     @apply h-7 w-7 cursor-pointer text-gray-600 transition-all duration-150 ease-in-out hover:scale-125 active:scale-90;
   }
   .input {
-    @apply mx-4 mb-2 h-2 w-11/12 rounded-md border-2 border-gray-300 bg-gray-100 bg-opacity-50 py-6 px-4 text-lg text-black hover:border-gray-500 focus:outline-none;
+    @apply mx-4 mb-2 h-2 w-11/12 rounded-md border-2 border-gray-300 bg-gray-100 bg-opacity-50 py-4 px-2 text-lg text-black hover:border-gray-500 focus:outline-none;
   }
   .submit {
-    @apply mx-4 my-3 w-11/12 items-center justify-center rounded-md border bg-sky-500 py-2 text-center text-lg font-semibold text-white transition duration-200 ease-in-out hover:scale-110 active:scale-90;
+    @apply mx-4 my-3 w-11/12 items-center justify-center rounded-lg border bg-sky-500 py-2 text-center text-sm font-semibold text-white transition duration-200 ease-in-out hover:scale-110 active:scale-90;
   }
   .grid {
     @apply container mx-auto flex h-screen max-w-screen-md flex-col place-items-center items-center justify-center;
@@ -119,4 +119,11 @@
     display: none;
   }
 
+}
+.grid {
+  scrollbar-width: none; /* For Firefox */
+}
+
+.grid::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari and Edge */
 }

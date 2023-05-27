@@ -10,6 +10,10 @@ import slide5 from "/slide (5).jpeg";
 import Copyright from "./Copyright";
 import appleStore from "/get-app-apple.png";
 import gpStore from "/get-app-gp.png";
+import { facebookProvider} from "../lib/firebase";
+import { ImFacebook2 as FacebookIcon } from "react-icons/im";
+import { signInWithPopup } from 'firebase/auth';
+
 function Login() {
   const navigate = useNavigate();
   const [emailAddress, setEmailAddress] = useState("");
@@ -82,12 +86,33 @@ function Login() {
   //     }
   //   }
   //};
+  const handleFacebookLogin = async () => {
+    console.log('handleFacebookLogin called'); // This line is new
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      // The signed-in user info.
+      const user = result.user;
+      // You can now redirect to another page or do whatever with the user data.
+      navigate(ROUTES.DASHBOARD);
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = error.credential;
+      //...
+    }
+};
+
+
   useEffect(() => {
     document.title = "Login - Instagram Clone";
   }, []);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2">
-      <div className="hidden items-center justify-center lg:flex mr-4 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 overflow-scroll">
+      <div className="mr-4 mb-6 hidden items-center justify-center lg:flex">
         <div className="phone-frame">
           <div className="slides-container">
             {slides.map((slide, index) => (
@@ -151,6 +176,23 @@ function Login() {
             >
               {loading ? "Logging in" : "Log in"}
             </button>
+            <div className="flex gap-2 items-center my-3">
+                      <div className="border-b-[1px] bg-transparent border-gray-400 h-0 w-full"></div>
+                      <div className="uppercase text-gray-500 font-semibold text-base">
+                        or
+                      </div>
+                      <div className="border-b-[1px] bg-transparent border-gray-400 h-0 w-full"></div>
+                    </div>
+            <button
+            type="button"
+            className="flex w-full items-center justify-center text-[#4267B2] mt-6 mb-4"
+            onClick={handleFacebookLogin}
+          >
+            <FacebookIcon fill="#4267B2" />
+            <span className="text-xs font-semibold ml-1">
+              Log in with Facebook
+            </span>{" "}
+          </button>
             <h1 className="flex justify-center text-center ">
               <button
                 // onClick={handleResetPassword}
@@ -160,6 +202,7 @@ function Login() {
               </button>
             </h1>
           </form>
+
         </div>
         <div className=" bottom-grid mt-40">
           <p className="mr-2 text-sm font-semibold">Don't have an Account?</p>
@@ -184,6 +227,11 @@ function Login() {
           </a>
         </div>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+
       <Copyright />
     </div>
   );
