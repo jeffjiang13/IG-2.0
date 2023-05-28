@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import useUser from '../hooks/use-user';
-import { createUserMessage, getUserByUserId } from '../services/firebase';
-import { Link } from 'react-router-dom';
-import useQuery from '../hooks/use-query';
-import MessageBox from '../components/Messages/MessageBox';
-import { ArrowCircleRightIcon, PaperAirplaneIcon } from '@heroicons/react/outline';
-import SideProfile from '../components/Messages/SideProfile';
-import SearchBarModal from '../components/Modals/SearchBarModal';
-import SendMedia from '../components/Modals/SendMedia';
-import SendAudioModal from '../components/Modals/SendAudioModal';
+import React, { useEffect, useState } from "react";
+import Header from "../components/Header";
+import useUser from "../hooks/use-user";
+import { createUserMessage, getUserByUserId } from "../services/firebase";
+import { Link } from "react-router-dom";
+import useQuery from "../hooks/use-query";
+import MessageBox from "../components/Messages/MessageBox";
+import {
+  ArrowCircleRightIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/outline";
+import SideProfile from "../components/Messages/SideProfile";
+import SearchBarModal from "../components/Modals/SearchBarModal";
+import SendMedia from "../components/Modals/SendMedia";
+import SendAudioModal from "../components/Modals/SendAudioModal";
 
 function Messages() {
   const {
-    user: { following, userId }
+    user: { following, userId },
   } = useUser();
   const [users, setUsers] = useState([]);
 
@@ -26,7 +29,7 @@ function Messages() {
         if (otherUsers[0].userId === message.followingUserId) {
           otherUsers[0] = {
             ...otherUsers[0],
-            messageId: message.messageId
+            messageId: message.messageId,
           };
         }
         setUsers((users) => [...users, otherUsers[0]]);
@@ -49,23 +52,28 @@ function Messages() {
         {users?.length > 0 && (
           <section
             className={`absolute left-2 z-10 flex h-[84vh] flex-col space-y-1 overflow-x-hidden overflow-y-scroll rounded-xl border bg-[#fbfcfc] py-3 px-2 shadow-md duration-300 scrollbar-hide ${
-              open ? 'w-56 shadow-lg' : 'w-[75px]'
+              open ? "w-56 shadow-lg" : "w-[75px]"
             } `}
           >
-            <ArrowCircleRightIcon
-              className={`sticky -mr-1 -mt-2 h-6 w-6 cursor-pointer self-end fill-[#fbfcfc] duration-300 ${
-                open && 'rotate-180'
-              }`}
-              onClick={() => setOpen(!open)}
-            />
+ <div className="flex justify-center w-full">
+              <h2 className="font-bold">Direct</h2>
+            </div>
+            <div className="flex justify-end w-full">
+              <ArrowCircleRightIcon
+                className={`sticky -mr-1 -mt-2 h-6 w-6 cursor-pointer fill-[#fbfcfc] duration-300 ${
+                  open && 'rotate-180'
+                }`}
+                onClick={() => setOpen(!open)}
+              />
+            </div>
             {users.map((result) => (
               <Link
                 to={`/messages/${userId}?with=${result.userId}&messageId=${result.messageId}`}
                 key={result.userId}
                 className={`flex items-center rounded-xl p-1 duration-200 active:scale-90 ${
                   open
-                    ? ' border px-1 hover:scale-105 hover:bg-gray-200 hover:bg-opacity-70'
-                    : 'border-none hover:scale-125'
+                    ? " border px-1 hover:scale-105 hover:bg-gray-200 hover:bg-opacity-70"
+                    : "border-none hover:scale-125"
                 }`}
                 onClick={() => setOpen(false)}
               >
@@ -81,17 +89,24 @@ function Messages() {
           </section>
         )}
         <section className="h-[84vh] w-[83%] rounded-xl bg-white shadow-md xxs:w-[78%] xs:w-[80%] sm:w-[85%] md:w-[87%] lg:w-[89%] xl:w-[90%]">
-          {!query.get('with') ? (
+          {!query.get("with") ? (
             <div className="flex h-full flex-col items-center justify-center space-y-4 text-center text-2xl font-semibold text-gray-600 sm:text-3xl">
-              <p className="flex h-32 w-32 items-center justify-center rounded-full border-4">
-                <PaperAirplaneIcon className="-mt-2 ml-3 h-20 w-20 rotate-50 stroke-[1.5]" />
+              <p className="flex h-24 w-24 items-center justify-center rounded-full border-4">
+                <PaperAirplaneIcon className="-mt-2 ml-3 h-14 w-14 rotate-50 stroke-[1.5]" />
               </p>
-              <p>No messages to display...</p>
-              <button className="submit w-48">Start a Chat</button>
+              <p className="text-lg">Your Messages</p>
+              <p className="text-sm text-gray-400">
+                Send private photos and messages to a friend or group
+              </p>
+
+              <button className="submit w-40">Send message</button>
             </div>
           ) : (
             <div className="h-full">
-              <MessageBox userId={query.get('with')} messageId={query.get('messageId')} />
+              <MessageBox
+                userId={query.get("with")}
+                messageId={query.get("messageId")}
+              />
             </div>
           )}
         </section>

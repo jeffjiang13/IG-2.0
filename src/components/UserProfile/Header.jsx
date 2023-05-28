@@ -145,17 +145,20 @@ function Header({ photosCount, profile, followerCount, followingCount, setFollow
           loggedInUserDocId={user.id}
         />
       </div>
-      <div className="hidden justify-between border-y px-20 pb-1 text-center text-lg font-semibold text-gray-700 md:inline-flex">
-        <p className="-mb-1 flex w-16 cursor-pointer flex-col items-center py-1 transition ease-in-out hover:border-t-2 hover:border-gray-700">
-          <ViewGridIcon className="-mb-1 h-7 w-7 text-gray-400" /> Posts
-        </p>
-        <p className="-mb-1 flex w-20 cursor-pointer flex-col items-center py-1 transition ease-in-out hover:border-t-2 hover:border-gray-700">
-          <TagIcon className="-mb-1 h-7 w-7 text-gray-400" /> Tagged
-        </p>
-        <p className="-mb-1 flex w-16 cursor-pointer flex-col items-center py-1 transition ease-in-out hover:border-t-2 hover:border-gray-700">
-          <BookmarkIcon className="-mb-1 h-7 w-7 text-gray-400" /> Saved
-        </p>
-      </div>
+<div className="hidden justify-between border-y px-60 pb-1 text-center text-sm font-semibold text-gray-700 md:inline-flex">
+  <p className="flex w-20 cursor-pointer flex-row items-center py-1 transition ease-in-out hover:border-t-2 hover:border-gray-700">
+    <ViewGridIcon className="h-4 w-4" /> POSTS
+  </p>
+
+  <p className="flex w-20 cursor-pointer flex-row items-center py-1 transition ease-in-out hover:border-t-2 hover:border-gray-700">
+    <BookmarkIcon className="h-4 w-4" /> SAVED
+  </p>
+  <p className="flex w-20 cursor-pointer flex-row items-center py-1 transition ease-in-out hover:border-t-2 hover:border-gray-700">
+    <img src='/instagram-tag-icon.png' className="h-4 w-4" /> TAGGED
+  </p>
+</div>
+
+
       <div className=" mx-6 space-y-2 md:hidden">
         <p className="-ml-2  font-semibold">{profile.fullName}</p>
         <p className=" -ml-2 whitespace-pre-line pb-2 text-sm">{profile.bio}</p>

@@ -10,9 +10,18 @@ import slide5 from "/slide (5).jpeg";
 import Copyright from "./Copyright";
 import appleStore from "/get-app-apple.png";
 import gpStore from "/get-app-gp.png";
-import { facebookProvider} from "../lib/firebase";
 import { ImFacebook2 as FacebookIcon } from "react-icons/im";
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from "firebase/auth";
+import { FacebookAuthProvider } from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 
 function Login() {
   const navigate = useNavigate();
@@ -87,31 +96,68 @@ function Login() {
   //   }
   //};
   const handleFacebookLogin = async () => {
-    console.log('handleFacebookLogin called'); // This line is new
+    const provider = new FacebookAuthProvider();
+    const db = getFirestore();
+
     try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      // The signed-in user info.
-      const user = result.user;
-      // You can now redirect to another page or do whatever with the user data.
+      const result = await signInWithPopup(auth, provider);
+      const credential = FacebookAuthProvider.credentialFromResult(result);
+      const accessToken = credential.accessToken;
+
+      let imageUrl = result.user.photoURL || "/images/default.png";
+
+      await fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&redirect=false&access_token=${accessToken}`)
+        .then(response => response.json())
+        .then(async (data) => {
+            if (data && data.data && data.data.url) {
+                imageUrl = data.data.url; // Use Facebook profile picture if available
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+      const userRef = doc(db, "users", result.user.uid);
+      const docSnap = await getDoc(userRef);
+
+      if (!docSnap.exists()) {
+        // Generate a username from the user's email
+        const generatedUsername = result.user.email.split("@")[0];
+
+        // Add new user document to Firestore
+        await addDoc(collection(db, "users"), {
+          userId: result.user.uid,
+          username: generatedUsername.toLowerCase(),
+          fullName: result.user.displayName,
+          emailAddress: result.user.email.toLowerCase(),
+          following: [],
+          followers: [],
+          dateCreated: Date.now(),
+          image: imageUrl, // Use imageUrl which could be Facebook image URL or default Firebase URL
+          bio: "",
+          lastSeen: serverTimestamp(),
+        });
+      } else {
+        // Update existing user document
+        await updateDoc(userRef, {
+          image: imageUrl, // Update the profile picture URL
+        });
+      }
+
       navigate(ROUTES.DASHBOARD);
     } catch (error) {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = error.credential;
-      //...
+      console.log("Facebook login error:", error);
     }
 };
+
+
 
 
   useEffect(() => {
     document.title = "Login - Instagram Clone";
   }, []);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 overflow-scroll">
+    <div className="grid grid-cols-1 overflow-scroll lg:grid-cols-2">
       <div className="mr-4 mb-6 hidden items-center justify-center lg:flex">
         <div className="phone-frame">
           <div className="slides-container">
@@ -176,23 +222,23 @@ function Login() {
             >
               {loading ? "Logging in" : "Log in"}
             </button>
-            <div className="flex gap-2 items-center my-3">
-                      <div className="border-b-[1px] bg-transparent border-gray-400 h-0 w-full"></div>
-                      <div className="uppercase text-gray-500 font-semibold text-base">
-                        or
-                      </div>
-                      <div className="border-b-[1px] bg-transparent border-gray-400 h-0 w-full"></div>
-                    </div>
+            <div className="my-3 flex items-center gap-2">
+              <div className="h-0 w-full border-b-[1px] border-gray-400 bg-transparent"></div>
+              <div className="text-base font-semibold uppercase text-gray-500">
+                or
+              </div>
+              <div className="h-0 w-full border-b-[1px] border-gray-400 bg-transparent"></div>
+            </div>
             <button
-            type="button"
-            className="flex w-full items-center justify-center text-[#4267B2] mt-6 mb-4"
-            onClick={handleFacebookLogin}
-          >
-            <FacebookIcon fill="#4267B2" />
-            <span className="text-xs font-semibold ml-1">
-              Log in with Facebook
-            </span>{" "}
-          </button>
+              type="button"
+              className="mt-6 mb-4 flex w-full items-center justify-center text-[#4267B2]"
+              onClick={handleFacebookLogin}
+            >
+              <FacebookIcon fill="#4267B2" />
+              <span className="ml-1 text-xs font-semibold">
+                Log in with Facebook
+              </span>{" "}
+            </button>
             <h1 className="flex justify-center text-center ">
               <button
                 // onClick={handleResetPassword}
@@ -202,7 +248,6 @@ function Login() {
               </button>
             </h1>
           </form>
-
         </div>
         <div className=" bottom-grid mt-40">
           <p className="mr-2 text-sm font-semibold">Don't have an Account?</p>
