@@ -1,9 +1,9 @@
 <div align="center" id="top" className="mb-10">
-  <img src="/favicon.ico" alt="Ecommerce App 2023" />
+  <img src="./public/favicon.ico" alt="Ecommerce App 2023" />
 
 &#xa0;
 
-  <img src="/screenshot.png" alt="Ecommerce App 2023" />
+  <img src="./public/screenshot.png" alt="Ecommerce App 2023" />
 
 <a href="https://jj-ig.vercel.app">Demo</a>
 
