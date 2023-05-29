@@ -12,12 +12,12 @@ Instagram 2.0 is a clone of Instagram by Meta. It has an Eye-Catching UI and gua
 <br />
 
 Current Features :
-
+<li>LogIn with Facebook</li>
 <li>LogIn and SignUp with Validation</li>
 <li>Following and Unfollowing Users</li>
-<li>Posting Images</li>
+<li>Posting Images and videos</li>
 <li>Comment Functionality</li>
-<li>Adding Emojis in  Comments</li>
+<li>Adding Emojis in Comments</li>
 <li>Like Functionality on both Posts and Comments</li>
 <li>Double Tap Like Functionality with Slick Animation on Posts</li>
 <li>Getting Suggestions to Follow Users</li>
