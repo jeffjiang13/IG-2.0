@@ -1,5 +1,15 @@
-# Instagram 2.0
+<div align="center" id="top" className="mb-10">
+  <img src="/favicon.ico" alt="Ecommerce App 2023" />
 
+&#xa0;
+
+  <img src="/screenshot.png" alt="Ecommerce App 2023" />
+
+<a href="https://jj-ig.vercel.app">Demo</a>
+
+</div>
+
+<h1 align="center">Instagram Clone</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
