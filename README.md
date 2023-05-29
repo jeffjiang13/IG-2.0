@@ -1,5 +1,5 @@
 <div align="center" id="top" className="mb-10">
-  <img className="h-10" src="./public/favicon.ico" alt="IG App 2023" />
+<img className="h-5 w-5" src="./public/favicon.ico" alt="IG App 2023" />
 
 &#xa0;
 
