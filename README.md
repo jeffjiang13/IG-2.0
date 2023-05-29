@@ -123,7 +123,7 @@ npm run dev
 
 👤 **Jeff Jiang**
 
-- Website:
+- Website: [jeff-jiang.com](https://jeff.jiang.com)
 - Github: [@jeffiang13](https://github.com/jeffjiang13)
 
 ## Show your support
