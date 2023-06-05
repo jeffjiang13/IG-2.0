@@ -249,7 +249,9 @@ export async function updateUserDetails(
   } else {
     await updateDoc(userRef, {
       username: edituserName ? edituserName : username,
-      fullName: editfullName ? editfullName : fullName
+      fullName: editfullName ? editfullName : fullName,
+      bio: editBio ? editBio : bio, // Add this line
+
     });
   }
 }

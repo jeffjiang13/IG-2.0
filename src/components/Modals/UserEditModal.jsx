@@ -38,52 +38,56 @@ function UserEditModal() {
   };
 
   // update users details in firebase
-  const updateDetails = async (event) => {
-    event.preventDefault();
-    const usernameExists = await doesUsernameExist(edituserName);
-    if (loading) return;
-    else {
-      setEditBio(editBio.trim());
-      setFullName(editfullName.trim());
-      setUserName(edituserName.trim());
-      if (!/^[A-Za-z ]+$/.test(editfullName) && editfullName !== '') {
-        setError('Invalid Name.');
-        setFullName('');
-      } else if (!/^[A-Za-z0-9_.]+$/.test(edituserName) && edituserName !== '') {
-        setError("Invalid Username. Only alphanumeric characters and '_' and '.' are allowed.");
-        setUserName('');
-      } else if (!usernameExists.length || editfullName !== '') {
-        setLoading(true);
-        setUserName(edituserName.toLowerCase());
-        await updateUserPostDetails(username, edituserName, selectedFile);
-        await updateUserCommentsDetails(username, edituserName, selectedFile);
-        await updateUserDetails(
-          id,
-          userId,
-          username,
-          fullName,
-          bio,
-          edituserName,
-          editfullName,
-          editBio,
-          selectedFile
-        );
+const updateDetails = async (event) => {
+  event.preventDefault();
+  const usernameExists = await doesUsernameExist(edituserName);
+  if (loading) return;
 
-        await updateUserAuthDetails(username, edituserName);
-        setTimeout(() => {
-          setSelectedFile(null);
-          setLoading(false);
-          setOpen(false);
-          edituserName
-            ? (navigate(`/profile/${edituserName}`), document.location.reload())
-            : document.location.reload();
-        }, 4000);
-      } else {
-        setUserName('');
-        setError('Username already exists. Please choose another one');
-      }
-    }
-  };
+  const trimmedEditBio = editBio.trim();
+  const trimmedFullName = editfullName.trim();
+  const trimmedUserName = edituserName.trim();
+
+  setEditBio(trimmedEditBio);
+  setFullName(trimmedFullName);
+  setUserName(trimmedUserName);
+
+  if (!/^[A-Za-z ]+$/.test(trimmedFullName) && trimmedFullName !== '') {
+    setError('Invalid Name.');
+    setFullName('');
+  } else if (!/^[A-Za-z0-9_.]+$/.test(trimmedUserName) && trimmedUserName !== '') {
+    setError("Invalid Username. Only alphanumeric characters and '_' and '.' are allowed.");
+    setUserName('');
+  } else if (!usernameExists.length || trimmedFullName !== '') {
+    setLoading(true);
+    setUserName(trimmedUserName.toLowerCase());
+    await updateUserPostDetails(username, trimmedUserName, selectedFile);
+    await updateUserCommentsDetails(username, trimmedUserName, selectedFile);
+    await updateUserDetails(
+      id,
+      userId,
+      username,
+      fullName,
+      bio,
+      trimmedUserName,
+      trimmedFullName,
+      trimmedEditBio,
+      selectedFile
+    );
+
+    await updateUserAuthDetails(username, trimmedUserName);
+    setTimeout(() => {
+      setSelectedFile(null);
+      setLoading(false);
+      setOpen(false);
+      trimmedUserName
+        ? (navigate(`/profile/${trimmedUserName}`), document.location.reload())
+        : document.location.reload();
+    }, 4000);
+  } else {
+    setUserName('');
+    setError('Username already exists. Please choose another one');
+  }
+};
 
   return (
     <Transition.Root show={open} as={Fragment}>
