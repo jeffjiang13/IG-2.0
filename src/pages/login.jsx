@@ -21,6 +21,7 @@ import {
   collection,
   serverTimestamp,
   updateDoc,
+  setDoc,
 } from "firebase/firestore";
 
 function Login() {
@@ -100,53 +101,66 @@ function Login() {
     const db = getFirestore();
 
     try {
-      const result = await signInWithPopup(auth, provider);
-      const credential = FacebookAuthProvider.credentialFromResult(result);
-      const accessToken = credential.accessToken;
+        const result = await signInWithPopup(auth, provider);
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
 
-      let imageUrl = result.user.photoURL || "/images/default.png";
+        let imageUrl = result.user.photoURL || "/images/default.png";
 
-      await fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&redirect=false&access_token=${accessToken}`)
-        .then(response => response.json())
-        .then(async (data) => {
-            if (data && data.data && data.data.url) {
-                imageUrl = data.data.url; // Use Facebook profile picture if available
+        await fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&redirect=false&access_token=${accessToken}`)
+            .then(response => response.json())
+            .then(async (data) => {
+                if (data && data.data && data.data.url) {
+                    imageUrl = data.data.url; // Use Facebook profile picture if available
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        const userRef = doc(db, "users", result.user.uid);
+        const docSnap = await getDoc(userRef);
+
+        let userData = {
+            userId: result.user.uid,
+            emailAddress: result.user.email.toLowerCase(),
+            dateCreated: serverTimestamp(),
+            lastSeen: serverTimestamp(),
+        };
+
+        if (!docSnap.exists()) {
+            // If it's a new user, set the Facebook profile picture, username, and fullName
+            userData.image = imageUrl;
+            userData.following = [];
+            userData.followers = [];
+            userData.bio = "";
+            userData.username = result.user.email.split("@")[0].toLowerCase(); // Generate a username from the user's email
+            userData.fullName = result.user.displayName;
+        } else {
+            // If user document already exists, don't update the profile picture, username, and fullName
+            const existingData = docSnap.data();
+            // Check if user has updated their profile picture in your app
+            if (existingData.image !== "/images/default.png") {
+                // User has updated their profile picture, so we don't use Facebook image
+                userData.image = existingData.image;
+            } else {
+                // User hasn't updated their profile picture, so we use the Facebook image
+                userData.image = imageUrl;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            userData.bio = existingData.bio ? existingData.bio : "";
+            userData.following = existingData.following ? existingData.following : [];
+            userData.followers = existingData.followers ? existingData.followers : [];
+            userData.username = existingData.username;
+            userData.fullName = existingData.fullName;
+        }
 
-      const userRef = doc(db, "users", result.user.uid);
-      const docSnap = await getDoc(userRef);
+        // If document doesn't exist or if document exists, set the user document with userData
+        // Here, we use setDoc() which creates a new document if it doesn't exist or updates the document if it already exists
+        await setDoc(userRef, userData, { merge: true });
 
-      if (!docSnap.exists()) {
-        // Generate a username from the user's email
-        const generatedUsername = result.user.email.split("@")[0];
-
-        // Add new user document to Firestore
-        await addDoc(collection(db, "users"), {
-          userId: result.user.uid,
-          username: generatedUsername.toLowerCase(),
-          fullName: result.user.displayName,
-          emailAddress: result.user.email.toLowerCase(),
-          following: [],
-          followers: [],
-          dateCreated: Date.now(),
-          image: imageUrl, // Use imageUrl which could be Facebook image URL or default Firebase URL
-          bio: "",
-          lastSeen: serverTimestamp(),
-        });
-      } else {
-        // Update existing user document
-        await updateDoc(userRef, {
-          image: imageUrl, // Update the profile picture URL
-        });
-      }
-
-      navigate(ROUTES.DASHBOARD);
+        navigate(ROUTES.DASHBOARD);
     } catch (error) {
-      console.log("Facebook login error:", error);
+        console.log("Facebook login error:", error);
     }
 };
 
