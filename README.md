@@ -18,7 +18,18 @@
 
 ### About The Build:
 
-Instagram 2.0 is a clone of Instagram by Meta. It has an Eye-Catching UI and guarantess responsiveness of every page and component upto a minimun width of 375px.
+The IG App 2023 is a comprehensive clone of the Instagram platform, designed to replicate the core functionalities and visual appeal of the original app with added enhancements. Developed using modern web technologies such as Vite, React.js, and Tailwind CSS, this project emphasizes a responsive and eye-catching user interface, ensuring optimal performance and user experience across various devices, specifically optimized for screens with a minimum width of 375px.
+
+### Key Features Include:
+- **Authentication:** Supports login with Facebook, as well as login and signup with validation.
+- **User Interaction:** Users can follow and unfollow others, post images and videos, and interact through comments and likes, including a double-tap like feature with animation.
+- **Social Features:** The app offers suggestions for users to follow, a comprehensive profile page, a default profile image for new users, and a search functionality with a modal for user discovery.
+- **Engagement Tools:** Responsive popup modals for likes, followings, followers, and user detail editing. Users can update their profile details and images, and view photos in popup modals on the profile page.
+- **Content Management:** Post deletion functionality for the content owner.
+- **Messaging:** One-to-one private messaging with support for media (images, videos), audio, voice recording, and sending. It also includes features for grouping messages by date and displaying the last active status of users.
+- **Security and Usability:** The app implements protected routes and displays a progress bar during route changes for a better user experience.
+
+
 <br />
 
 Current Features :
