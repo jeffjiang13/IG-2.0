@@ -16,7 +16,7 @@ function Copyright() {
         <p className="cursor-pointer hover:underline inline-block mr-6">Hashtags</p>
         <p className="cursor-pointer hover:underline inline-block">Language</p>
       </div>
-      <p className="pt-4 text-center">© 2023 INSTAGRAM CLONE BY JJ, All Rights Reserved</p>
+      <p className="pt-4 text-center">© 2024 INSTAGRAM CLONE BY JJ, All Rights Reserved</p>
     </div>
   );
 }
