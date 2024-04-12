@@ -149,4 +149,4 @@ npm run dev
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if this project helped you! This app is for educational purposes only.
