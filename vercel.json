@@ -3,7 +3,7 @@
       {
         "source": "/(.*)",
         "headers": [
-          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; object-src 'none';" },
+          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://securetoken.googleapis.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://securetoken.googleapis.com; img-src 'self' data:; frame-ancestors 'none';" },
           { "key": "X-Content-Type-Options", "value": "nosniff" },
           { "key": "X-Frame-Options", "value": "DENY" },
           { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" }
