@@ -5,7 +5,7 @@
 
   <img src="./public/Screenshot.png" alt="IG App 2023" />
 
-<a href="https://jj-ig.netlify.app/">Demo</a>
+<a href="https://quicktele.netlify.app/">Demo</a>
 
 </div>
 

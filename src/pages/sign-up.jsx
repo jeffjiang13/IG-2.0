@@ -159,7 +159,7 @@ function SignUp() {
         <div className="top-grid my-3 p-[24px]">
           <h1 className="-mx-16 flex w-full justify-center ">
             <img
-              src="/images/logo.png"
+              src="/images/logo2.png"
               alt="Instagram Logo"
               className="mt-4 mb-4 w-48 "
             />

@@ -192,7 +192,7 @@ function Login() {
         <div className=" top-grid -mb-36 p-5">
           <h1 className="-mx-16 flex w-full justify-center">
             <img
-              src="/images/logo.png"
+              src="/images/logo2.png"
               alt="Instagram Logo"
               className="mt-4 mb-6 w-48 "
             />

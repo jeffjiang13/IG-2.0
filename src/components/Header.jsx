@@ -29,7 +29,7 @@ function Header() {
     <div className="fixed top-0 z-50 w-screen border-b bg-white shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-evenly">
         <Link to={ROUTES.DASHBOARD} className="hidden w-32 cursor-pointer sm:inline-grid">
-          <img src="/images/logo.png" alt="Logo" />
+          <img src="/images/logo2.png" alt="Logo" />
         </Link>
         <Link to={ROUTES.DASHBOARD} className="w-12 cursor-pointer sm:hidden">
           <img src="/images/logo-icon2.png" alt="Logo" />

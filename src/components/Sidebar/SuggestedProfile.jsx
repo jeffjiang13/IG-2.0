@@ -28,7 +28,7 @@ function SuggestedProfile({
       />
       <Link to={`/profile/${username}`} className="ml-4 mr-2 flex-1">
         <h2 className="cursor-pointer text-sm font-semibold">{username}</h2>
-        <h3 className="truncate text-xs text-gray-400">New To Instagram</h3>
+        <h3 className="truncate text-xs text-gray-400">New To Quicktele</h3>
       </Link>
       <button className="mb-4 text-xs font-semibold text-blue-500" onClick={handleFollowUser}>
         Follow

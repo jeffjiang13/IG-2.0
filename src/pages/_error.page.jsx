@@ -23,7 +23,7 @@ function NotFound() {
         to={ROUTES.DASHBOARD}
         className="my-4 flex items-center justify-center text-lg text-blue-500 decoration-transparent"
       >
-        Go Back To Instagram
+        Go Back To Quicktele
       </Link>
     </div>
   );
